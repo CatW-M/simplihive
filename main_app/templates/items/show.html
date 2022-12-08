@@ -1,0 +1,11 @@
+{% load static %}
+<title>Items</title>
+
+<h2>{{ item.name }} </h2>
+<p> {{ item.description }} </p>
+<p> {{ item.significance }} </p>
+
+{% if not item.anonymous %}
+
+<p> Posted by: {{ item.user }} </p>
+

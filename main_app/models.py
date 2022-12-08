@@ -9,6 +9,7 @@ class Item(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    anonymous = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

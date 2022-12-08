@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simplihive - Items</title>
+  </head>
+  <body>
+    <h1>Keep, Donate, or Trash?</h1>
+    <hr />
+    {% for item in items %}
+    <p>{{ item.name }}</p>
+    <p>{{ item.significance }}</p>
+    {% if not item.anonymous %}
+        <p> Posted by: {{ item.user }} </p>
+        {% endif %}
+    <hr />
+  {% endfor %}
+    <footer>All Rights Reserved, simplihive 2022</footer>
+  </body>
+</html>
