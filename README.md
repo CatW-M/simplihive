@@ -9,6 +9,8 @@ Users will be able to login and post items that they are unsure of getting rid o
 Stretch Goal 1: Users can search for donation locations near them. Users can add Donation sites to the database. Users can leave reviews for donation sites.
 
 Stretch Goal 2: Users can chat with each other and support each other through the decluttering process.
+---
+![ERD](static/images/erdplan.png)
 
 ## Getting Started
 
