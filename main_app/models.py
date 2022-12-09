@@ -33,3 +33,10 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
+class Image(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        return self.item.name
+
