@@ -14,3 +14,22 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+class Choice(models.Model):
+    DONATE = 'donate'
+    TRASH = 'trash'
+    KEEP = 'keep'
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    CHOICE_TEXT = [
+        (DONATE, 'Donate'),
+        (TRASH, 'Trash'),
+        (KEEP, 'Keep'),
+    ]
+    choice_text = models.CharField(
+        max_length=32,
+        choices=CHOICE_TEXT,
+    )
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.choice_text
+
