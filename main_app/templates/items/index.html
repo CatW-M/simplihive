@@ -8,14 +8,22 @@
     <h1>Keep, Donate, or Trash?</h1>
     <hr />
     {% for item in items %}
-    <p>{{ item.name }}</p>
-    <p>{{ item.significance }}</p>
-    {% if not item.anonymous %}
-        <p> Posted by: {{ item.user }} </p>
+    <div className="item-container">
+      <div className="image-box">
+        {% if item.item_image %}
+        <img src="{{item.item_image.url}}" width=500 />
+        <div className="content">
+          <p className="title">{{ item.name }}</p>
+          <h4 className="significance">{{ item.significance }}</h4>
+        </div>
+      </div>
+    {% if item.anonymous %}
+        <p className="left-align">Posted Anonymously</p>
+    {% else %}
+        <p className="left-align"> Posted by: {{ item.user }} </p>
         {% endif %}
-    {% if item.item_image %}
-        <img src="{{item.item_image.url}}" width=500>
     {% endif %}
+    </div>
     <hr />
   {% endfor %}
     <footer>All Rights Reserved, simplihive 2022</footer>

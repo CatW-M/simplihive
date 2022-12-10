@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item
+from .models import Item, Choice
 # from .forms import ImageForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -26,6 +26,8 @@ class ItemDelete(DeleteView):
     model = Item
     success_url = '/items'
 
+
+
 # def image_upload_view(request):
 #     """Process images uploaded by users"""
 #     if request.method == 'POST':
@@ -46,8 +48,20 @@ def items_index(request):
     items = Item.objects.all()
     return render(request, 'items/index.html', { 'items': items })
 
+
+    
 def items_show(request, item_id):
     item = Item.objects.get(id=item_id)
+    try:
+        selected_choice = item.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, 'items/detail.html', {
+            'item': item,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
     return render(request, 'items/show.html', {'item': item})
 
 def profile(request, username):
