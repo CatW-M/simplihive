@@ -13,6 +13,9 @@
     {% if not item.anonymous %}
         <p> Posted by: {{ item.user }} </p>
         {% endif %}
+    {% if item.item_image %}
+        <img src="{{item.item_image.url}}" width=500>
+    {% endif %}
     <hr />
   {% endfor %}
     <footer>All Rights Reserved, simplihive 2022</footer>

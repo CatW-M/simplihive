@@ -16,8 +16,7 @@ Stretch Goal 2: Users can chat with each other and support each other through th
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+'''pip install Pillow'''
 
 ### Installing
 
