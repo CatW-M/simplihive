@@ -9,6 +9,7 @@ class Item(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item_image = models.ImageField(null=True, blank=True, upload_to='images/')
     anonymous = models.BooleanField(default=False)
 
     def __str__(self):
@@ -32,11 +33,4 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
-
-class Image(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images')
-
-    def __str__(self):
-        return self.item.name
 

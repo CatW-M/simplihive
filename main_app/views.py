@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item
-from .forms import ImageForm
+# from .forms import ImageForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -26,18 +26,18 @@ class ItemDelete(DeleteView):
     model = Item
     success_url = '/items'
 
-def image_upload_view(request):
-    """Process images uploaded by users"""
-    if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            # Get the current instance object to display in the template
-            img_obj = form.instance
-            return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
-    else:
-        form = ImageForm()
-    return render(request, 'index.html', {'form': form})
+# def image_upload_view(request):
+#     """Process images uploaded by users"""
+#     if request.method == 'POST':
+#         form = ImageForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             # Get the current instance object to display in the template
+#             img_obj = form.instance
+#             return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
+#     else:
+#         form = ImageForm()
+#     return render(request, 'index.html', {'form': form})
 
 def index(request):
     return render(request, 'index.html')
