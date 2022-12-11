@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item, Choice, Comment
-from .forms import CommentForm
+from .forms import CommentForm, ItemForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -10,8 +10,13 @@ from django.contrib.auth.decorators import login_required
 
 class ItemCreate(CreateView):
     model = Item
-    fields = '__all__'
+    form_class = ItemForm
+    template_name = 'main_app/item_form.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
     success_url = '/items'
+
 
 class ItemUpdate(UpdateView):
     model = Item
