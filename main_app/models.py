@@ -1,5 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+from datetime import datetime, date
+
+class Status(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
@@ -11,9 +22,13 @@ class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_image = models.ImageField(null=True, blank=True, upload_to='images/')
     anonymous = models.BooleanField(default=False)
+    status = models.CharField(max_length=50, default='deciding')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 class Comment(models.Model):
     item = models.ForeignKey(Item, related_name="comments", on_delete=models.CASCADE)
