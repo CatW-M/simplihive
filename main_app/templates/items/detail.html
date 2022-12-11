@@ -1,0 +1,44 @@
+{% load static %}
+<center>
+<div className="item-container">
+    {% if image.is_active %}
+    <h1>STATUS = DECIDING...</h1>
+   <!-- Add code for result here -->
+    {% endif %}
+    <div className="image-box">
+      {% if item.item_image %}
+      <img src="{{item.item_image.url}}" width=200 />
+      <div className="content">
+        <p className="title">{{ item.name }}</p>
+        <h4 className="significance">{{ item.significance }}</h4>
+      </div>
+    </div>
+  {% if item.anonymous %}
+      <p className="left-align">Posted Anonymously</p>
+  {% else %}
+      <p className="left-align"> Posted by: {{ item.user }} </p>
+      {% endif %}
+  {% endif %}
+  </div>
+</center>
+  <hr />
+  <h2>Comments...</h2>
+<br/>
+
+{% if not item.comments.all %}
+    No comments yet...<a href="#">Add One</a>
+{% else %}
+    {% for comments in item.comments.all %}
+        <strong>{{ comments.name }} - {{ comments.date_added }}</strong> 
+        <br/>
+        {{ comments.body }}
+        <hr />
+    {% endfor %}
+{% endif %}
+<br/><br/>
+
+  <footer>All Rights Reserved, simplihive 2022</footer>
+</body>
+</html>
+
+
