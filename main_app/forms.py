@@ -8,6 +8,9 @@ choice_list = []
 for item in choices:
     choice_list.append(item)
 
+
+vote_choice = [('DONATE', 'Donate'), ('TRASH', 'Trash'), ('KEEP', 'Keep'),]
+
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
@@ -19,6 +22,14 @@ class ItemForm(forms.ModelForm):
             'significance': forms.Textarea(attrs={'class': 'form-control'}),
             'status': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
             'anonymous': forms.RadioSelect(attrs={'class': 'form-control'}),
+        }
+
+class VoteForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ('name', )
+        widgets = {
+             'name': forms.Select(choices=vote_choice, attrs={'class': 'form-control'}),
         }
 
 class CommentForm(forms.ModelForm):

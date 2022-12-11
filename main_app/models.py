@@ -41,21 +41,25 @@ class Comment(models.Model):
 
 
 class Choice(models.Model):
-    DONATE = 'donate'
-    TRASH = 'trash'
-    KEEP = 'keep'
+    name = models.CharField(max_length=50, default='deciding')
+    votes = models.IntegerField(default = 0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    CHOICE_TEXT = [
-        (DONATE, 'Donate'),
-        (TRASH, 'Trash'),
-        (KEEP, 'Keep'),
-    ]
-    choice_text = models.CharField(
-        max_length=32,
-        choices=CHOICE_TEXT,
-    )
-    votes = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return self.choice_text
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')
+
+# class Vote(models.Model):
+#     class Meta: 
+#         unique_together = (('user', 'Choice'))
+
+#     user = models.ForeignKey(User)
+#     Choice = models.ForeignKey(Choice)
+#     item = models.ForeignKey(Item)
+
+#     def __str__(self):
+#         return self.Choice
 

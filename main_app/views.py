@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item, Choice, Comment
-from .forms import CommentForm, ItemForm
+from .forms import CommentForm, ItemForm, VoteForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -51,27 +51,21 @@ class AddCommentView(CreateView):
         return super().form_valid(form)
     success_url = '/items'
 
+class VoteItem(CreateView):
+    model = Choice
+    form_class = VoteForm
+    template_name = 'main_app/item_vote.html'
+    def form_valid(self, form):
+        form.instance.item_id = self.kwargs['pk']
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    success_url = 'main_app/item_results.html'
+    
 
 def index(request):
     return render(request, 'index.html')
 
 
-
-
-    
-# def items_show(request, item_id):
-#     item = Item.objects.get(id=item_id)
-#     try:
-#         selected_choice = item.choice_set.get(pk=request.POST['choice'])
-#     except (KeyError, Choice.DoesNotExist):
-#         return render(request, 'items/detail.html', {
-#             'item': item,
-#             'error_message': "You didn't select a choice.",
-#         })
-#     else:
-#         selected_choice.votes += 1
-#         selected_choice.save()
-#     return render(request, 'items/detail.html', {'item': item})
 
 def profile(request, username):
     user = User.objects.get(username=username)
@@ -114,3 +108,4 @@ def signup(request):
     else:
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
+

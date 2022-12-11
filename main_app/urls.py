@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('items/', views.ItemIndex.as_view(), name='items_index'),
     path('items/<int:pk>/', views.ItemDetailView.as_view(), name='item-detail'),
+    path('items/<int:pk>/vote', views.VoteItem.as_view(), name='item-vote'),
     path('items/create/', views.ItemCreate.as_view(), name='items_create'),
     path('items/<int:pk>/update/', views.ItemUpdate.as_view(), name='items_update'),
     path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='items_delete'),
