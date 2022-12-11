@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item, Choice, Comment
 from .forms import CommentForm, ItemForm
@@ -7,6 +8,10 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+class ItemIndex(ListView):
+    model = Item
+    template_name = 'item_index.html'
 
 class ItemCreate(CreateView):
     model = Item
@@ -31,6 +36,9 @@ class ItemDelete(DeleteView):
     model = Item
     success_url = '/items'
 
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = 'item_detail.html'
 
 
 class AddCommentView(CreateView):
@@ -47,25 +55,23 @@ class AddCommentView(CreateView):
 def index(request):
     return render(request, 'index.html')
 
-def items_index(request):
-    items = Item.objects.all()
-    return render(request, 'items/index.html', { 'items': items })
+
 
 
     
-def items_show(request, item_id):
-    item = Item.objects.get(id=item_id)
-    try:
-        selected_choice = item.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        return render(request, 'items/detail.html', {
-            'item': item,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-    return render(request, 'items/detail.html', {'item': item})
+# def items_show(request, item_id):
+#     item = Item.objects.get(id=item_id)
+#     try:
+#         selected_choice = item.choice_set.get(pk=request.POST['choice'])
+#     except (KeyError, Choice.DoesNotExist):
+#         return render(request, 'items/detail.html', {
+#             'item': item,
+#             'error_message': "You didn't select a choice.",
+#         })
+#     else:
+#         selected_choice.votes += 1
+#         selected_choice.save()
+#     return render(request, 'items/detail.html', {'item': item})
 
 def profile(request, username):
     user = User.objects.get(username=username)

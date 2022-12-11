@@ -1,23 +1,27 @@
-{% load static %}
+{% extends 'base.html' %}
+
+{% block content %}
 <center>
 <div className="item-container">
-    {% if image.is_active %}
-    <h1>STATUS = DECIDING...</h1>
-   <!-- Add code for result here -->
+    {% if item.is_active %}
+    <h1>Status: Help me decide...</h1>
+   <!-- Add code for voting here -->
     {% endif %}
     <div className="image-box">
       {% if item.item_image %}
       <img src="{{item.item_image.url}}" width=200 />
+      {% endif %}
       <div className="content">
         <p className="title">{{ item.name }}</p>
         <h4 className="significance">{{ item.significance }}</h4>
       </div>
     </div>
+  
   {% if item.anonymous %}
       <p className="left-align">Posted Anonymously</p>
   {% else %}
       <p className="left-align"> Posted by: {{ item.user }} </p>
-      {% endif %}
+      
   {% endif %}
   </div>
 </center>
@@ -44,4 +48,5 @@
 </body>
 </html>
 
+{% endblock %}
 
