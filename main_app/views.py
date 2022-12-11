@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item, Choice
-# from .forms import ImageForm
+from .models import Item, Choice, Comment
+from .forms import CommentForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -28,18 +28,16 @@ class ItemDelete(DeleteView):
 
 
 
-# def image_upload_view(request):
-#     """Process images uploaded by users"""
-#     if request.method == 'POST':
-#         form = ImageForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             # Get the current instance object to display in the template
-#             img_obj = form.instance
-#             return render(request, 'index.html', {'form': form, 'img_obj': img_obj})
-#     else:
-#         form = ImageForm()
-#     return render(request, 'index.html', {'form': form})
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'main_app/add_comment.html'
+    def form_valid(self, form):
+        form.instance.item_id = self.kwargs['pk']
+        form.instance.name = self.request.user
+        return super().form_valid(form)
+    success_url = '/items'
+
 
 def index(request):
     return render(request, 'index.html')
@@ -62,7 +60,7 @@ def items_show(request, item_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-    return render(request, 'items/show.html', {'item': item})
+    return render(request, 'items/detail.html', {'item': item})
 
 def profile(request, username):
     user = User.objects.get(username=username)

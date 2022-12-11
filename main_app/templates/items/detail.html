@@ -22,20 +22,23 @@
   </div>
 </center>
   <hr />
-  <h2>Comments...</h2>
-<br/>
+  <h1>Comments...</h1>
 
 {% if not item.comments.all %}
-    No comments yet...<a href="#">Add One</a>
+    No comments yet...<a href="{% url 'add_comment' item.pk %}">Add One</a>
 {% else %}
+<a href="{% url 'add_comment' item.pk %}">Add Comment</a>
+<br/>
     {% for comments in item.comments.all %}
         <strong>{{ comments.name }} - {{ comments.date_added }}</strong> 
         <br/>
         {{ comments.body }}
         <hr />
-    {% endfor %}
+        <br/>
+        {% endfor %}
+        <a href="{% url 'add_comment' item.pk %}">Add Comment</a>
 {% endif %}
-<br/><br/>
+<br/>
 
   <footer>All Rights Reserved, simplihive 2022</footer>
 </body>
