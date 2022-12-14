@@ -1,12 +1,12 @@
 from .models import Item, Choice, Comment, Status
 from django import forms
 
-choices = Status.objects.all().values_list('name','name')
+# choices = Status.objects.all().values_list('name','name')
 
 choice_list = []
 
-for item in choices:
-    choice_list.append(item)
+# for item in choices:
+#     choice_list.append(item)
 
 
 vote_choice = [('DONATE', 'Donate'), ('TRASH', 'Trash'), ('KEEP', 'Keep'),]

@@ -22,7 +22,7 @@ class Item(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_image = models.ImageField(null=True, blank=True, upload_to='images/')
     anonymous = models.BooleanField(default=False)
-    status = models.CharField(max_length=50, default='deciding')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class Item(models.Model):
         return reverse('home')
 
 class Comment(models.Model):
-    item = models.ForeignKey(Item, related_name="comments", on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
@@ -41,10 +41,10 @@ class Comment(models.Model):
 
 
 class Choice(models.Model):
-    name = models.CharField(max_length=50, default='deciding')
+    name = models.CharField(max_length=50, blank=True, null=True)
     votes = models.IntegerField(default = 0)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, default= 4)
+    user = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -52,14 +52,5 @@ class Choice(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
-# class Vote(models.Model):
-#     class Meta: 
-#         unique_together = (('user', 'Choice'))
 
-#     user = models.ForeignKey(User)
-#     Choice = models.ForeignKey(Choice)
-#     item = models.ForeignKey(Item)
-
-#     def __str__(self):
-#         return self.Choice
 
