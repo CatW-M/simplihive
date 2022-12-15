@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.views import generic
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Item, Choice, Comment
@@ -38,7 +39,12 @@ class ItemDelete(DeleteView):
 
 class ItemDetailView(DetailView):
     model = Item
+    form_class = VoteForm
     template_name = 'item_detail.html'
+
+class ResultsView(generic.DetailView):
+    model = Item
+    template_name = 'main_app/results.html'
 
 
 class AddCommentView(CreateView):
@@ -55,12 +61,30 @@ class VoteItem(CreateView):
     model = Choice
     form_class = VoteForm
     template_name = 'main_app/item_vote.html'
+    
     def form_valid(self, form):
         form.instance.item_id = self.kwargs['pk']
         form.instance.user = self.request.user
+        # if Item.choice.choice_text:
+        #     form.instance.votes += 1
+
         return super().form_valid(form)
-    success_url = 'main_app/item_results.html'
-    
+
+    success_url = 'results'
+
+# def vote(request, pk):
+#     item = get_object_or_404(Item, pk=pk)
+#     try:
+#         selected_choice = item.choice_set.get(pk=request.POST['name'])    
+#     except (KeyError, Choice.DoesNotExist):
+#         return render(request, 'item_detail.html',{
+#             'item': item,
+#             'error_message': "You didn't select a choice."
+#         })
+#     else: 
+#         selected_choice.votes +=1
+#         selected_choice.save()
+#         return HttpResponseRedirect(reverse('items:results', args=(item.id,)))
 
 def index(request):
     return render(request, 'index.html')
