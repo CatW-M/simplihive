@@ -9,7 +9,7 @@
 {% endfor %} -->
 </ul>
 
-<a href="{% url 'item-detail' item.id %}">Vote again?</a>
+<a href="{% url 'item-vote' item.id %}">Vote again?</a>
 <script>
   var result_list = document.getElementById(`result_list`);
   var raw_choices = '{{item.choice_set.all}}'
