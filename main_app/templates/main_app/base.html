@@ -13,9 +13,20 @@
   <body>
     {% include 'main_app/navbar.html' %}
     <br/>
-    {% block content %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+            
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Bit of A Buzz! {{ message }}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        {% endif %}
 
-{% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
