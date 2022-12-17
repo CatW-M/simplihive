@@ -42,7 +42,6 @@ class Comment(models.Model):
 
 class Choice(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    votes = models.IntegerField(default = 0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, default= 4)
     user = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
 

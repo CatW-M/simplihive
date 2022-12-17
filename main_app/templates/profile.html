@@ -3,7 +3,9 @@
 
 {% block content %}
 
-<h1>{{ username }}'s items:</h1>
+<h1>Welcome, {{ username }}:</h1>
+<hr>
+<h3>{{ username }}'s items:</h3>
 
 {% for item in items %}
 <a href="/items/{{ item.id }}">

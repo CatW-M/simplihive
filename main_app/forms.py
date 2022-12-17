@@ -14,7 +14,7 @@ vote_choice = [('DONATE', 'Donate'), ('TRASH', 'Trash'), ('KEEP', 'Keep'),]
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('name', 'description', 'significance', 'status', 'anonymous')
+        fields = ('name', 'description', 'significance', 'status', 'item_image', 'anonymous')
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
