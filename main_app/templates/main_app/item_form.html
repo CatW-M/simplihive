@@ -1,15 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'main_app/base.html' %}
 
 {% block content %}
 <center>
-<div class="form-group">
-  <form action="" method="post" enctype="multipart/form-data">
-    
-    {% csrf_token %}
-    {{ form.as_p }}
- 
-    <input type="submit" value="Submit!">
-  </form>
+  <div class="container">
+  <h1>Add Item</h1><br/><br/>
+  {% if submitted %}
+  <div>Your Item Was Created!</div>
+  {% else %}
+  <div class="form-group">
+    <div class="mb-3">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      
+      <input type="submit" value="Submit!">
+    </form>
+  </div>
+  </div>
+  {% endif %}
 </div>
 </center>
 {% endblock %}

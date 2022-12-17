@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'main_app/base.html' %}
 
 {% block content %}
 <h1><img src="{{item.item_image.url}}" width=200 /></h1>
@@ -11,21 +11,21 @@
 
 <a href="{% url 'item-vote' item.id %}">Vote again?</a>
 <script>
-  var result_list = document.getElementById(`result_list`);
-  var raw_choices = '{{item.choice_set.all}}'
+  let result_list = document.getElementById(`result_list`);
+  let raw_choices = '{{item.choice_set.all}}'
 
-  var trash_count = (raw_choices.match(/TRASH/g) || []).length;
-  var trash_node = document.createElement(`li`);
+  let trash_count = (raw_choices.match(/TRASH/g) || []).length;
+  let trash_node = document.createElement(`li`);
   trash_node.innerHTML = `Trash: ${trash_count}`;
   result_list.appendChild(trash_node);
 
-  var donate_count = (raw_choices.match(/DONATE/g) || []).length;
-  var donate_node = document.createElement(`li`);
+  let donate_count = (raw_choices.match(/DONATE/g) || []).length;
+  let donate_node = document.createElement(`li`);
   donate_node.innerHTML = `Donate: ${donate_count}`;
   result_list.appendChild(donate_node);
 
-  var keep_count = (raw_choices.match(/KEEP/g) || []).length;
-  var keep_node = document.createElement(`li`);
+  let keep_count = (raw_choices.match(/KEEP/g) || []).length;
+  let keep_node = document.createElement(`li`);
   keep_node.innerHTML = `Keep: ${keep_count}`;
   result_list.appendChild(keep_node);
 

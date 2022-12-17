@@ -15,13 +15,20 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ('name', 'description', 'significance', 'status', 'item_image', 'anonymous')
+        labels = {
+            'name': '',
+            'description': '',
+            'significance': '',
+            'status': 'Choose status of item...',
+            'item_image': 'Upload image:',
+            'anonymous': 'Post anonymously?',
 
+        }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'significance': forms.Textarea(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item Name'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Description'}),
+            'significance': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Significance (if any)'}),
             'status': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
-            'anonymous': forms.RadioSelect(attrs={'class': 'form-control'}),
         }
 
 class VoteForm(forms.ModelForm):

@@ -9,10 +9,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from calendar import HTMLCalendar
+from datetime import datetime
 
 class ItemIndex(ListView):
     model = Item
-    template_name = 'item_index.html'
+    template_name = 'main_app/item_index.html'
 
 class ItemCreate(CreateView):
     model = Item
@@ -40,7 +42,7 @@ class ItemDelete(DeleteView):
 class ItemDetailView(DetailView):
     model = Item
     form_class = VoteForm
-    template_name = 'item_detail.html'
+    template_name = 'main_app/item_detail.html'
 
 class ResultsView(generic.DetailView):
     model = Item
@@ -94,6 +96,8 @@ def index(request):
 def profile(request, username):
     user = User.objects.get(username=username)
     item = list(Item.objects.filter(user=user))
+
+    #create a calendar
     return render(request, 'profile.html', {'username': username, 'items': item})
 
 def login_view(request):
@@ -126,7 +130,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('login')
         else: 
           return render(request, 'signup.html', {'form': form})
     else:

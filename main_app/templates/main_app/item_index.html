@@ -1,14 +1,9 @@
 
-{% extends 'base.html' %}
+{% extends 'main_app/base.html' %}
 
 {% block content %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Simplihive - Items</title>
-  </head>
-  <body>
     <h1>Keep, Donate, or Trash?</h1>
+    <p>Click on an item's picture or description to see details and help a fellow member decide what to do with the item.</p>
     <hr />
     {% for item in object_list %}
       <div className="item-container">
@@ -18,9 +13,6 @@
         {% else %}
           <a href="{% url 'item-detail' item.pk %}">{{ item.name }}</a>
           {% endif %}
-          <div className="content">
-          <h4 className="significance">{{ item.significance }}</h4>
-        </div>
       </div>
     {% if item.anonymous %}
         <p className="left-align">Posted Anonymously</p>
@@ -30,8 +22,5 @@
     </div>
     <hr />
   {% endfor %}
-    <footer>All Rights Reserved, simplihive 2022</footer>
-  </body>
-</html>
 
 {% endblock %}
