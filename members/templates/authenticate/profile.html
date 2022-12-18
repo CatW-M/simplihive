@@ -1,16 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'main_app/base.html' %}
 {% load static %}
 
 {% block content %}
 
-<h1>Welcome, {{ username }}:</h1>
+<h1>Welcome, {{ user.username }}:</h1>
 <hr>
-<h3>{{ username }}'s items:</h3>
+<h3>Your items:</h3>
 
 {% for item in items %}
+  {% if item.is_active %}
 <a href="/items/{{ item.id }}">
   <h3>{{ item.name }}</h3>
 </a>
+    {% endif %}
 
 {% endfor %}
 
