@@ -74,66 +74,9 @@ class VoteItem(CreateView):
 
     success_url = 'results'
 
-# def vote(request, pk):
-#     item = get_object_or_404(Item, pk=pk)
-#     try:
-#         selected_choice = item.choice_set.get(pk=request.POST['name'])    
-#     except (KeyError, Choice.DoesNotExist):
-#         return render(request, 'item_detail.html',{
-#             'item': item,
-#             'error_message': "You didn't select a choice."
-#         })
-#     else: 
-#         selected_choice.votes +=1
-#         selected_choice.save()
-#         return HttpResponseRedirect(reverse('items:results', args=(item.id,)))
-
 def index(request):
     return render(request, 'index.html')
 
 
 
-def profile(request, username):
-    user = User.objects.get(username=username)
-    item = list(Item.objects.filter(user=user))
-
-    #create a calendar
-    return render(request, 'profile.html', {'username': username, 'items': item})
-
-def login_view(request):
-     # if post, then authenticate (user submitted username and password)
-    if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            u = form.cleaned_data['username']
-            p = form.cleaned_data['password']
-            user = authenticate(username = u, password = p)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect('/user/'+u)
-                else:
-                    print('The account has been disabled.')
-            else:
-                print('The username and/or password is incorrect.')
-    else: # it was a get request so send the emtpy login form
-        form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect('/')
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('login')
-        else: 
-          return render(request, 'signup.html', {'form': form})
-    else:
-        form = UserCreationForm()
-        return render(request, 'signup.html', {'form': form})
 

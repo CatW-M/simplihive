@@ -11,10 +11,13 @@
 </div>
 
 {% endif %}
+<div class="shadow p-4 mb-5 bg-body rounded">
   <h2>Sign up</h2>
   <form method="post" action="{% url 'signup' %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    <button type="button" class="btn btn-warning">Register</button>
   </form>
+</div>
+  <br/>
 {% endblock %}
