@@ -20,8 +20,9 @@
     </div>
     {% endif %}
   </div>
+  {% else %}
+  <h1>You must be logged in to view this page.</h1>
+  <a href="{% url 'login' %}">Login Here</a>
+  {% endif %}
 </center>
-{% else %}
-<h1>You must be logged in to view this page.</h1>
-<a href="{% url 'login' %}">Login Here</a>
 {% endblock %}

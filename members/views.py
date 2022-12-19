@@ -1,18 +1,27 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
-from main_app.models import Item, User
-from .models import Profile
-from .forms import EditProfileForm, PasswordChangingForm
+from main_app.models import User
+from .forms import EditProfileForm, PasswordChangingForm, UserCreateForm
 from django.views import generic
+from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from main_app.models import MemberProfile, Item
+
 
 # Create your views here.
+class ShowProfilePageView(DetailView):
+    model = MemberProfile
+    template_name = 'authenticate/user_profile.html'
+
+    def get_context_data(self, **kwargs):
+        user = User.objects.get(id=kwargs['pk'])
+        profile_view = MemberProfile.objects.get(user)
+    
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
     template_name = 'authenticate/edit_profile.html'
@@ -25,6 +34,11 @@ class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
     # form_class = PasswordChangeForm
     success_url = reverse_lazy('index')
+
+class UserRegisterView(generic.CreateView):
+    form_class = UserCreateForm
+    template_name = 'authenticate/signup.html'
+    success_url = reverse_lazy('login')
 
 
 def login_user(request):
@@ -47,18 +61,18 @@ def logout_user(request):
     messages.success(request, ("You were logged out."))
     return redirect('index')
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, ("Successfully Registered. Welcome!"))
-            return redirect('login')
-    else:
-        form = SignUpForm()
-    return render(request, 'authenticate/signup.html', {'form': form,})
+# def signup(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password1']
+#             user = authenticate(username=username, password=password)
+#             login(request, user)
+#             messages.success(request, ("Successfully Registered. Welcome!"))
+#             return redirect('login')
+#     else:
+#         form = SignUpForm()
+#     return render(request, 'authenticate/signup.html', {'form': form,})
 

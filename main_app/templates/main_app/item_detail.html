@@ -16,16 +16,37 @@
         <h4 className="significance">{{ item.significance }}</h4>
       </div>
     </div>
-  
-  {% if item.anonymous %}
-      <p className="left-align">Posted Anonymously</p>
+  {% if user.id == item.user.id %}
+    <a class="btn btn-primary" href="{% url 'items_update' item.pk %}" role="button">Update</a>
+    <a class="btn btn-primary" href="{% url 'items_delete' item.pk %}" role="button">Delete</a>
   {% else %}
-      <p className="left-align"> Posted by: {{ item.user }} </p>
+
+    {% if item.anonymous %}
+      <p className="left-align">Posted Anonymously</p>
+    {% else %}
+  </center>
+      <hr>
       
-  {% endif %}
-  </div>
-</center>
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <a href="{% url 'show_profile' item.user.id %}">
+            <img src="{{ item.user.memberprofile.profile_pic.url }}" class="card-img" alt="{{ item.user }}"></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Posted by: {{ item.user }}: {{ item.user.memberprofile.city}}, {{item.user.memberprofile.state}}</h5>
+              <p class="card-text">{{ item.user.memberprofile.bio }}</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
   <hr />
+    {% endif %}
+  {% endif %}
+</div>
+
   <h1>Comments...</h1>
 
 {% if not item.comments.all %}

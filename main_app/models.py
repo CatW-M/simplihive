@@ -31,7 +31,7 @@ class Item(models.Model):
         return reverse('home')
 
 class Comment(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
@@ -54,6 +54,9 @@ class Choice(models.Model):
 class MemberProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
+    profile_pic = models.ImageField(null=True, blank=True, upload_to='images/profile')
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return str(self.user)

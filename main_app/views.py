@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from calendar import HTMLCalendar
 from datetime import datetime
 
+
 class ItemIndex(ListView):
     model = Item
     template_name = 'main_app/item_index.html'
@@ -28,15 +29,16 @@ class ItemCreate(CreateView):
 
 class ItemUpdate(UpdateView):
     model = Item
-    fields = ['name', 'description', 'significance', 'anonymous']
-
+    form_class = ItemForm
+    template_name = 'main_app/item_form.html'
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.save()
-        return HttpResponseRedirect('/items/' + str(self.object.pk))
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    success_url = '/items'
 
 class ItemDelete(DeleteView):
     model = Item
+    template_name = 'main_app/item_delete.html'
     success_url = '/items'
 
 class ItemDetailView(DetailView):
@@ -52,6 +54,7 @@ class ResultsView(generic.DetailView):
 class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
+    ordering = ['-id']
     template_name = 'main_app/add_comment.html'
     def form_valid(self, form):
         form.instance.item_id = self.kwargs['pk']
