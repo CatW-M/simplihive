@@ -15,12 +15,11 @@ from main_app.models import MemberProfile, Item
 
 # Create your views here.
 class ShowProfilePageView(DetailView):
-    model = MemberProfile
+    model = User
     template_name = 'authenticate/user_profile.html'
-
-    def get_context_data(self, **kwargs):
-        user = User.objects.get(id=kwargs['pk'])
-        profile_view = MemberProfile.objects.get(user)
+    queryset = User.objects.all()
+    lookup_field='user__pk'
+    lookup_url_kwarg='pk'
     
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
