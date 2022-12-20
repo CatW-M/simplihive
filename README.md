@@ -10,7 +10,7 @@ Stretch Goal 1: Users can search for donation locations near them. Users can add
 
 Stretch Goal 2: Users can chat with each other and support each other through the decluttering process.
 ---
-![ERD](static/images/erdplan.png)
+![ERD](main_app/static/images/erdplan.png)
 
 ## Getting Started
 
