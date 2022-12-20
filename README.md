@@ -1,6 +1,9 @@
-# Project Title
+# Simplihive
 
-Python Django PostgreSQL application designed to add a social element to decluttering your home.
+Simplify your home, simplify your life.
+
+Python Django PostgreSQL application designed to add a social element (hive mind to combat decision fatigue) to decluttering your home.
+
 
 ## Description
 
@@ -16,52 +19,67 @@ Stretch Goal 2: Users can chat with each other and support each other through th
 
 ### Dependencies
 
-'''pip install Pillow'''
+```
+pip install Pillow
+```
+
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Fork and clone the repository here
+* Create a .env file
+
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Install Python/Django (if you do not have already)
 ```
-code blocks for commands
+brew install python3
+pip3 install ipython
+pip3 install django
 ```
-
+* Run database migration
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+* Create admin (superuser)
+```
+python3 manage.py createsuperuser
+```
+* Run server
+```
+python3 manage.py runserver
+```
+You should be able to access the app through localhost and admin through localhost/admin
 ## Help
 
-Any advise for common problems or issues.
+If you forget the password for your admin (superuser account), run the following command in your terminal
 ```
-command to run if program contains helper info
+python3 manage.py changepassword <user_name>
 ```
 
 ## Authors
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Catherine Wheeler-Mushlin
+[@wordsbycat](https://twitter.com/wordsbycat)
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
 * 0.1
     * Initial Release
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the GNU Free Documentation License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+* [Videos from Codemy.com](https://www.youtube.com/@Codemycom)
+* [Colorscheme Info](https://hookagency.com/blog/website-color-schemes/)
+* [Django Documentation](https://docs.djangoproject.com/en/4.1/)
+* [Django Create App](https://docs.djangoproject.com/en/4.1/intro/tutorial01/)
+* [Python 3.11 Documentation](https://docs.python.org/3/)
