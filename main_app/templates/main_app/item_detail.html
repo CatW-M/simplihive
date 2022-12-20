@@ -24,13 +24,12 @@
     {% if item.anonymous %}
       <p className="left-align">Posted Anonymously</p>
     {% else %}
-  </center>
-      <hr>
-      
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="{% url 'show_profile' item.user.id %}">
+    <hr>
+    
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <a href="{% url 'show_profile' item.user.id %}">
             <img src="{{ item.user.memberprofile.profile_pic.url }}" class="card-img" alt="{{ item.user }}"></a>
           </div>
           <div class="col-md-8">
@@ -42,11 +41,12 @@
           </div>
         </div>
       </div>
-  <hr />
-    {% endif %}
-  {% endif %}
-</div>
-
+      <hr />
+      {% endif %}
+      {% endif %}
+    </div>
+  </center>
+    
   <h1>Comments...</h1>
 
 {% if not item.comments.all %}
