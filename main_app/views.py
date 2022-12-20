@@ -73,8 +73,11 @@ class ResultsView(generic.DetailView):
 class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
-    ordering = ['-id']
     template_name = 'main_app/add_comment.html'
+
+    class Meta:
+        ordering = ['-date_added',]
+        
     def form_valid(self, form):
         form.instance.item_id = self.kwargs['pk']
         form.instance.name = self.request.user

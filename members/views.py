@@ -24,14 +24,14 @@ class ShowProfilePageView(DetailView):
 class UserEditView(generic.UpdateView):
     form_class = EditProfileForm
     template_name = 'authenticate/edit_profile.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('edit_profile')
 
     def get_object(self):
         return self.request.user
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('edit_profile')
 
 class UserRegisterView(generic.CreateView):
     form_class = UserCreateForm

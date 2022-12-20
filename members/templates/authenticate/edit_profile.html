@@ -19,7 +19,7 @@
         <h2 class="card-title">{{ user }}'s Profile</h2>
         <p class="card-text">{{ user.memberprofile.bio }}</p>
         <p class="card-text"><small class="text-muted">Space Holder</small></p>
-        <a class="btn btn-primary btn-lg" href="{% url 'member_update' user.memberprofile.pk %}" role="button">Edit Public Profile</a>
+        <a class="btn btn-secondary btn-sm" href="{% url 'member_update' user.memberprofile.pk %}" role="button">Edit Public Profile</a>
       </div>
     </div>
   </div>
