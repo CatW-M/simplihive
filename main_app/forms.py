@@ -1,4 +1,4 @@
-from .models import Item, Choice, Comment, Status
+from .models import Item, Choice, Comment, Status, MemberProfile
 from django import forms
 
 # choices = Status.objects.all().values_list('name','name')
@@ -29,6 +29,23 @@ class ItemForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Description'}),
             'significance': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Significance (if any)'}),
             'status': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
+        }
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = MemberProfile
+        fields = ('bio', 'profile_pic', 'city', 'state')
+        labels = {
+            'bio': '',
+            'profile_pic': 'Upload image:',
+            'city': '',
+            'state': '',
+
+        }
+        widgets = {
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Share something about yourself...'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Share your city (optional)'}),
+            'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Share your state (optional)'}),
         }
 
 class VoteForm(forms.ModelForm):

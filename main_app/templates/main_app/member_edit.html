@@ -1,0 +1,27 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<center>
+  <div class="shadow p-4 mb-5 bg-body rounded">
+    <h1>Create a Public Profile<br /> for {{user}}</h1><br /><br />
+    {% if submitted %}
+    <div>Your Public Profile Was Created!</div>
+    {% else %}
+    <div class="form-group">
+      <div class="mb-3">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+
+          <input type="submit" value="Submit!">
+        </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% else %}
+  <h1>You must be logged in to view this page.</h1>
+  <a href="{% url 'login' %}">Login Here</a>
+  {% endif %}
+</center>
+{% endblock %}

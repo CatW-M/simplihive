@@ -3,32 +3,46 @@
 
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
-<h1>Edit your profile:</h1>
 <br/><br/>
+{% if user.memberprofile %} 
 <div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        {% if user.memberprofile.profile_pic %}
-        <img src="{{ user.memberprofile.profile_pic.url }}" class="card-img rounded-circle" alt="{{ user }}">
-        {% else %}
-        <img src="{% static 'main_app/images/defaultbee.png' %}" class="card-img rounded-circle" alt="{{ user }}">
-        {% endif %}
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{ user }}'s Profile</h5>
-          <p class="card-text">{{ user.memberprofile.bio }}</p>
-          <p class="card-text"><small class="text-muted">Last added item</small></p>
-        </div>
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      {% if user.memberprofile.profile_pic %}
+      <img src="{{ user.memberprofile.profile_pic.url }}" class="card-img rounded-circle" alt="{{ user }}">
+      {% else %}
+      <img src="{% static 'main_app/images/defaultbee.png' %}" class="card-img rounded-circle" alt="{{ user }}">
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h2 class="card-title">{{ user }}'s Profile</h2>
+        <p class="card-text">{{ user.memberprofile.bio }}</p>
+        <p class="card-text"><small class="text-muted">Space Holder</small></p>
+        <a class="btn btn-primary btn-lg" href="{% url 'member_update' user.memberprofile.pk %}" role="button">Edit Public Profile</a>
       </div>
     </div>
   </div>
-    
+</div>
+{% else %}
+<div class="jumbotron">
+  <h1 class="display-4">Welcome, {{user}}!</h1>
+  <p class="lead">Help your community get to know you a little better.</p>
+  <hr class="my-4">
+  <p>Share as much or as little as you want: Add to your public member profile</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'member_create' %}" role="button">Add Public Profile</a>
+  </p>
+</div>
+{% endif %}
+
+<h3>Edit your user profile below:</h3>
+<br />
 <div class="form-group">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-secondary">Update Profile</button>
+        <button class="btn btn-secondary">Update User Profile</button>
 </div>
 
 

@@ -3,14 +3,15 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views import generic
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Item, Choice, Comment
-from .forms import CommentForm, ItemForm, VoteForm
+from .models import Item, Choice, Comment, MemberProfile
+from .forms import CommentForm, ItemForm, VoteForm, MemberForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from calendar import HTMLCalendar
 from datetime import datetime
+from django.urls import reverse_lazy
 
 
 class ItemIndex(ListView):
@@ -45,6 +46,24 @@ class ItemDetailView(DetailView):
     model = Item
     form_class = VoteForm
     template_name = 'main_app/item_detail.html'
+
+class MemberProfileCreateView(CreateView):
+    model = MemberProfile
+    form_class = MemberForm
+    template_name = 'main_app/member_edit.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    success_url = reverse_lazy('edit_profile')
+
+class MemberProfileUpdateView(UpdateView):
+    model = MemberProfile
+    form_class = MemberForm
+    template_name = 'main_app/member_edit.html'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    success_url = reverse_lazy('edit_profile')
 
 class ResultsView(generic.DetailView):
     model = Item

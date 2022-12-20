@@ -31,7 +31,6 @@ class UserEditView(generic.UpdateView):
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
-    # form_class = PasswordChangeForm
     success_url = reverse_lazy('index')
 
 class UserRegisterView(generic.CreateView):

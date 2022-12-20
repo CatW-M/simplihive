@@ -79,17 +79,19 @@
       <header class="mb-auto">
         <div>
           <h3 class="float-md-start mb-0">Simplihive</h3>
-          <img src="../static/logowhite.png"
+          <img src="../static/logowhite.png">
           <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" href="{% url 'signup' %}">Sign-Up</a>
-            <a class="nav-link fw-bold py-1 px-0" href="{% url 'login'%}">Login</a>
+            <div class="hstack gap-3">
+            <a class="btn btn-outline-info" href="{% url 'signup' %}">Sign-Up</a>
+            <div class="vr"></div>
+            <a class="btn btn-outline-warning" href="{% url 'login'%}">Login</a>
+          </div>
           </nav>
         </div>
       </header>
-
+      <br /><br />
       <main class="px-3">
-        <h1>Simplihive</h1>
-        <h3>Simplify your life with the help of your hive</h3>
+        <h3>Simplify your home and simplify your life with the help of your hive</h3>
         <p class="lead">
           Decluttering can be hard because we naturally form attachments to items in our lives. With Simplihive, you post items you are having trouble parting ways with, 
           write a brief description, and describe what significance the item holds. You can even upload a photo of the item. Then, your community hive will vote whether you should donate, keep, or trash the item.
