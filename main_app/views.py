@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 
 class ItemIndex(ListView):
@@ -69,6 +70,15 @@ class ResultsView(generic.DetailView):
     model = Item
     template_name = 'main_app/results.html'
 
+# class SearchResultsView(ListView):
+#     model = Item
+#     template_name = 'main_app/search_results.html'
+
+#     def get_queryset(SearchResultsView):
+#         query = SearchResultsView.request.GET.get("q")
+#         object_list = Item.objects.filter(
+#             Q(name=query) | Q(status=query)
+#         )
 
 class AddCommentView(CreateView):
     model = Comment
@@ -102,6 +112,13 @@ class VoteItem(CreateView):
 def index(request):
     return render(request, 'index.html')
 
+def search_items(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        items = Item.objects.filter(name__contains=searched)
+        return render(request, 'main_app/search_results.html', {'searched': searched, 'items':items})
+    else: 
+        return render(request, 'main_app/search_results.html', {})
 
 
 

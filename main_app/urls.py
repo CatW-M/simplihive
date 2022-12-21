@@ -14,7 +14,7 @@ urlpatterns = [
     path('items/<int:pk>/comment/', views.AddCommentView.as_view(), name='add_comment'),
     path('memberprofile/create/', views.MemberProfileCreateView.as_view(), name='member_create'),
     path('memberprofile/<int:pk>/update/', views.MemberProfileUpdateView.as_view(), name='member_update'),
-    # path('user/<username>/', views.profile, name='profile'),
+    path('search/', views.search_items, name='search_results'),
     # path('logout/', views.logout_view, name="logout"),
     # path('signup/', views.signup, name='signup'),
 ]
