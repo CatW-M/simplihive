@@ -118,7 +118,9 @@ def search_items(request):
         items = Item.objects.filter(name__contains=searched)
         return render(request, 'main_app/search_results.html', {'searched': searched, 'items':items})
     else: 
-        return render(request, 'main_app/search_results.html', {})
+        return render(request, 
+        'main_app/search_results.html', 
+        {})
 
 
 

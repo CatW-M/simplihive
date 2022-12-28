@@ -1,14 +1,18 @@
 {% extends 'main_app/base.html' %}
 
 {% block content %}
-<h1>Search Results</h1>
+<center>
+{% if searched %}
+<h1>You searched for
+  {{ searched }}</h1>
+  <br/>
+  {% for item in items %}
+    <a href="{% url 'item_detail' item.id %}">
+    {{ item }}</a><br/>
+  {% endfor %}
+{% else %}
+  <h1>Hey! You Forgot to Search for an Item...</h1>
+{% endif %}
+</center>
 
-<ul>
-  {% if searched %}
-    <li>
-        You searched for
-      {{ searched }}
-    </li>
-  {% endif %}
-</ul>
 {% endblock %}
