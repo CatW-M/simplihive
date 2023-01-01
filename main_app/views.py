@@ -114,7 +114,7 @@ def index(request):
 
 def search_items(request):
     if request.method == "POST":
-        searched = request.POST['searched']
+        searched = request.POST.get('searched')
         items = Item.objects.filter(name__contains=searched)
         return render(request, 'main_app/search_results.html', {'searched': searched, 'items':items})
     else: 

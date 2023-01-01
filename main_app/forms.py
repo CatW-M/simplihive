@@ -3,7 +3,7 @@ from django import forms
 
 # choices = Status.objects.all().values_list('name','name')
 
-choice_list = []
+choice_list = [('DECIDING', 'Deciding'), ('DONATED', 'Donated'), ('TRASHED', 'Trashed'), ('KEPT', 'Kept'),]
 
 # for item in choices:
 #     choice_list.append(item)
