@@ -6,7 +6,7 @@
     <h1>Keep, Donate, or Trash?</h1>
     <p>Click on an item's picture or description to see details and help a fellow member decide what to do with the item.</p>
     <hr />
-    {% if item in object_list %}
+    {% if object_list.count %}
       {% for item in object_list %}
         <div className="item-container">
           <div className="image-box">
