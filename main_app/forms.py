@@ -1,4 +1,4 @@
-from .models import Item, Choice, Comment, Status, MemberProfile
+from .models import Item, Choice, Comment, MemberProfile
 from django import forms
 
 # choices = Status.objects.all().values_list('name','name')

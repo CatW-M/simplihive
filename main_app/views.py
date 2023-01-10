@@ -36,12 +36,12 @@ class ItemUpdate(UpdateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    success_url = '/items'
+    success_url = reverse_lazy('items_index')
 
 class ItemDelete(DeleteView):
     model = Item
     template_name = 'main_app/item_delete.html'
-    success_url = '/items'
+    success_url = reverse_lazy('items_index')
 
 class ItemDetailView(DetailView):
     model = Item
@@ -92,7 +92,7 @@ class AddCommentView(CreateView):
         form.instance.item_id = self.kwargs['pk']
         form.instance.name = self.request.user
         return super().form_valid(form)
-    success_url = '/items'
+    success_url = reverse_lazy('items_index')
 
 class VoteItem(CreateView):
     model = Choice
