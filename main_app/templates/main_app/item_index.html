@@ -6,22 +6,31 @@
     <h1>Keep, Donate, or Trash?</h1>
     <p>Click on an item's picture or description to see details and help a fellow member decide what to do with the item.</p>
     <hr />
-    {% for item in object_list %}
-      <div className="item-container">
-        <div className="image-box">
-        {% if item.item_image %}
-          <a href="{% url 'item-detail' item.pk %}"><img src="{{item.item_image.url}}" width=500 /></a>
-        {% else %}
-          <a href="{% url 'item-detail' item.pk %}">{{ item.name }}</a>
-          {% endif %}
-      </div>
-    {% if item.anonymous %}
-        <p className="left-align">Posted Anonymously</p>
-    {% else %}
-        <p className="left-align"> Posted by: {{ item.user }} </p>
+    {% if item in object_list %}
+      {% for item in object_list %}
+        <div className="item-container">
+          <div className="image-box">
+          {% if item.item_image %}
+            <a href="{% url 'item-detail' item.pk %}"><img src="{{item.item_image.url}}" width=500 /></a>
+          {% else %}
+            <a href="{% url 'item-detail' item.pk %}">{{ item.name }}</a>
+            {% endif %}
+        </div>
+      {% if item.anonymous %}
+          <p className="left-align">Posted Anonymously</p>
+      {% else %}
+          <p className="left-align"> Posted by: {{ item.user }} </p>
+      {% endif %}
+        </div>
+        <hr />
+      {% endfor %}
+    {% else %}   
+        <div>
+          <h2>No Items Added Yet.</h2>
+          <h3 class="nav-item">
+            <a class="nav-link" href="{% url 'items_create' %}">Add an Item</a>
+          </h3>
+        </div>
     {% endif %}
-    </div>
-    <hr />
-  {% endfor %}
 </center>
 {% endblock %}
