@@ -20,6 +20,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+IS_HEROKU = "DYNO" in os.environ
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,11 +28,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
+if 'SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ[config("SECRET_KEY")]
+
+if IS_HEROKU:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = []
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
-
-ALLOWED_HOSTS = ['simplihive.herokuapp.com', '127.0.0.1']
-
+if not IS_HEROKU:
+    DEBUG = True
 
 # Application definition
 
@@ -80,6 +86,7 @@ WSGI_APPLICATION = 'simplihive.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+MAX_CONN_AGE = 600
 
 DATABASES = {
     'default': {
@@ -88,6 +95,10 @@ DATABASES = {
     }
 }
 
+if "DATABASE_URL" in os.environ:
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=MAX_CONN_AGE, ssl_require=True
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
